@@ -4,7 +4,7 @@
     <title>Resultado</title>
 </head>
 <body>
-    <p><?php echo "Se te ha enviado un correo de recuperación"; ?></p>
+<p><?php echo $mensaje; ?></p>
     <a href="index.php?controller=users&action=mostrarLogin">Iniciar Sesión</a>
 </body>
 </html>

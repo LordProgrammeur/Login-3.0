@@ -186,27 +186,27 @@ class Users
 
     // Procesar el reinicio de contraseña
     public function procesarReiniciarPassword()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $token = $_POST['token'];
-            $password = $_POST['password'];
-            $confirm_password = $_POST['confirm-password'];
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $token = $_POST['token'];
+        $password = $_POST['password'];
+        $confirm_password = $_POST['confirm-password'];
 
-            if ($password !== $confirm_password) {
-                $mensaje = "Las contraseñas no coinciden.";
-                require 'views/resultado.php';
-                return;
-            }
+        if ($password !== $confirm_password) {
+            echo "<script>alert('Las contraseñas no coinciden.');</script>";
+            require 'views/reiniciar.view.php';
+            return;
+        }
 
-            // Comprobación de la contraseña
-            if (!preg_match('/^(?=.*[A-Z])(?=.*\W).{8,}$/', $password)) {
-                $mensaje = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un signo especial.";
-                require 'views/resultado.php';
-                return;
-            }
+        // Comprobación de la contraseña
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\W).{8,}$/', $password)) {
+            echo "<script>alert('La contraseña debe tener al menos 8 caracteres, una letra mayúscula y un signo especial.');</script>";
+            require 'views/reiniciar.view.php'; 
+            return;
+        }
 
-            $user = new User();
-            $usuario = $user->encontrarUsuarioPorToken($token);
+        $user = new User();
+        $usuario = $user->encontrarUsuarioPorToken($token);
 
             if ($usuario) {
                 $user->actualizarPassword($usuario['id'], $password);
